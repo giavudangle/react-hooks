@@ -6,10 +6,8 @@ const Search = () => {
     const [term,setTerm] = useState("");
     const [results,setResults] = useState([]);
 
-
     useEffect(() => {
-        console.log('rerender');
-        const timeId = setTimeout(() => {
+        const timeOutGetData = setTimeout(() => {
             if(term){
                 (async () => {
                     const {data} = await 
@@ -26,13 +24,8 @@ const Search = () => {
                 })() 
             }
         },500);
-
         // Cleanup
-        return () => {
-            console.log('cleanup');
-           clearTimeout(timeId)
-        }
-
+        return () => clearTimeout(timeOutGetData)
     },[term])
 
     const renderedResults = results.map((result) => {
