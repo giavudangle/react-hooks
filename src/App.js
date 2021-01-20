@@ -3,6 +3,9 @@ import Accordion from './components/Accordion';
 import Search from './components/Search';
 import Dropdown from'./components/Dropdown';
 import Translate from './components/Translate';
+import Route from './components/Route';
+import Header from './components/Header';
+
 const items = [
   {
     title:'What is react ?' ,
@@ -39,24 +42,31 @@ const options = [
 
 
 
+
 function App() {
   const [selected,setSelected] = useState(options[0]);
-  const [showDropDown,setShowDropDown] = useState(true);
+
 
   return (
-    <div className="App">
-      <button onClick={() => setShowDropDown(!showDropDown)}>Toogle Dropdown</button>
-      {
-        showDropDown ? 
-        // <Dropdown 
-        // onSelectedChange={setSelected}
-        // selected={selected}
-        // options={options}/>
+    <div>
+      <Header/>
+      <Route path='/'>
+        <Accordion items={items} />
+      </Route>
+      <Route path='/translate'>
         <Translate/>
-        : null
-        /* <Accordion items={items}/>
-        <Search/> */
-      }
+      </Route>
+      <Route path='/list'>
+        <Search/>
+      </Route>
+      <Route path='/dropdown'>
+        <Dropdown
+          label='Select a color'
+          options = {options}
+          selected={selected}
+          onSelectedChange={setSelected}
+        />
+      </Route>
     </div>
   );
 }
